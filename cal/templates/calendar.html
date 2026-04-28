@@ -1,0 +1,153 @@
+{% load static %}
+{% load filter_item %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMatch - {{title}}</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/Fitmatch-logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/userDetails.css' %}">
+    <link rel="stylesheet" href="{% static 'css/calendar.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="#" class="nav-brand">{{title}}</a>
+        <div class="nav-links">
+            <div class="nav-item dropdown">
+                <a href="{% url 'choose-plan' %}">Fitness Dashboard <span class="arrow"></span></a>
+            </div>
+            <div class="nav-item dropdown">
+                <a href="{% url 'user-details' %}">User Details<span class="arrow"></span></a>
+            </div>
+            <div class="nav-item dropdown">
+                <a href="{% url 'help' %}">Help <span class="arrow"></span></a>
+            </div>
+            <div class="nav-item dropdown">
+                <a href="{% url 'logout' %}">Log out <span class="arrow"></span></a>
+            </div>
+        </div>
+        <div class="nav-icon">
+            <img src="{% static 'images/Fitmatch-logo.png' %}" alt="Fit Match Logo" class="fitmatch-logo" viewBox="0 0 64 64" width="50" height="50">
+                <circle cx="32" cy="10" r="6" fill="#1a3a5c"/>
+                <line x1="32" y1="16" x2="32" y2="35" stroke="#1a3a5c" stroke-width="4" stroke-linecap="round"/>
+                <line x1="15" y1="20" x2="49" y2="20" stroke="#1a3a5c" stroke-width="4" stroke-linecap="round"/>
+                <line x1="32" y1="35" x2="22" y2="55" stroke="#1a3a5c" stroke-width="4" stroke-linecap="round"/>
+                <line x1="32" y1="35" x2="42" y2="55" stroke="#1a3a5c" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </nav>
+
+    <div id="blurOverlay" class=""></div>
+
+    <!-- Main Content -->
+    <main class="calendar-container">
+        <div class="calendar">
+            <div style="display:flex; align-items: center; margin-bottom: 5px">
+                <a href="?month={{ prev_month }}&year={{ prev_year }}" style="text-decoration: none;"><div style="height:30px; padding:0 10px;cursor: pointer;border-radius:25px;background-color: aliceblue;display: flex;justify-content: center; align-items: center;"><< Previous</div></a>
+                <h2 class="calendar-title" style="flex-grow: 1; text-align: center;">{{ month_name }} {{ year }}</h2>
+                <a href="?month={{ next_month }}&year={{ next_year }}"  style="text-decoration: none;"><div style="height:30px; padding:0 10px;cursor: pointer;border-radius:25px;background-color: aliceblue;display: flex;justify-content: center; align-items: center;">Next >></div></a>
+            </div>
+            <table class="calendar-table" border="1">
+            <tr class="calendar-heading-row">
+                <th>Sun</th><th>Mon</th><th>Tue</th>
+                <th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+            </tr>
+            {% for week in calendar %}
+                <tr>
+                    {% for day in week %}
+                        {% if day != 0 %}
+                            {% if event_dict|has_event:day %}
+                                {% if month_type == "past" %}
+                                    <td class="dead-event-tile">                                    
+                                        <strong class="calendar-day">{{ day }}</strong>
+                                   </td>
+                                {% else %}
+                                    <td class="event-tile">                                    
+                                        <strong class="calendar-day">{{ day }}</strong>
+                                        {% with event=event_dict|has_event:day %}
+                                            {% for plan in event.plan.all %}
+                                                <div style="width: 80%;"><span style="font-size: 11px;"><strong>Plan {{plan.id}}</strong>:{{ plan.video.title }}</span></div>
+                                            {% endfor %}
+                                        {% endwith %}
+                                        <div class="add-button" onclick="editEvent('{{day}}')">
+                                            <svg viewBox="0 0 25 25" class="edit_icon" height="15" width="15" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8477 1.87868C19.6761 0.707109 17.7766 0.707105 16.605 1.87868L2.44744 16.0363C2.02864 16.4551 1.74317 16.9885 1.62702 17.5692L1.03995 20.5046C0.760062 21.904 1.9939 23.1379 3.39334 22.858L6.32868 22.2709C6.90945 22.1548 7.44285 21.8693 7.86165 21.4505L22.0192 7.29289C23.1908 6.12132 23.1908 4.22183 22.0192 3.05025L20.8477 1.87868ZM18.0192 3.29289C18.4098 2.90237 19.0429 2.90237 19.4335 3.29289L20.605 4.46447C20.9956 4.85499 20.9956 5.48815 20.605 5.87868L17.9334 8.55027L15.3477 5.96448L18.0192 3.29289ZM13.9334 7.3787L3.86165 17.4505C3.72205 17.5901 3.6269 17.7679 3.58818 17.9615L3.00111 20.8968L5.93645 20.3097C6.13004 20.271 6.30784 20.1759 6.44744 20.0363L16.5192 9.96448L13.9334 7.3787Z" fill="#0F0F0F"></path> </g></svg>
+                                        </div>
+                                        <div id="editEventModalBox_{{day}}" style="display: none;">
+                                            {% include 'components/editEvent.html' with day=day  month=month month_name=month_name year=year plans=plans%}
+                                        </div>
+                                    </td>
+                                {% endif %}
+                            {% else %}
+                                {% if month_type == "past" %}
+                                    <td class="dead-tile">
+                                        {% if day != 0 %}
+                                            <strong class="calendar-day">{{ day }}</strong>   
+                                        {% endif %}
+                                    </td>
+                                {% else %}
+                                    <td class="calendar-tile">
+                                        {% if day != 0 %}
+                                            <strong class="calendar-day">{{ day }}</strong>
+                                            <div class="add-button" onclick="addEvent('{{day}}')">
+                                                <svg viewBox="0 0 20 20" class="add_icon" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tra#cfcfcferCarrier" stroke-line#cfcfcfap="round" stroke-linejoin="round"></g><g id="SVGRepo_i#cfcfcfonCarrier"> <path fill="#ffffff" fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zm-9 7a9 9 0 1118 0 9 9 0 01-18 0zm14 .069a1 1 0 01-1 1h-2.931V14a1 1 0 11-2 0v-2.931H6a1 1 0 110-2h3.069V6a1 1 0 112 0v3.069H14a1 1 0 011 1z"></path> </g></svg>
+                                            </div>
+                                            <div id="addEventModalBox_{{day}}" style="display: none;">
+                                                {% include 'components/addEvent.html' with day=day month_name=month_name month=month year=year plans=plans%}
+                                            </div>    
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                                
+                                
+                            {% endif %}
+                        {% else %}
+                                <td class="dead-tile">       
+                                </td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+        
+        
+       <div class="university-logo">
+            <img src="{% static 'images/UOW-logo.png' %}" alt="University of Westminster Logo" class="uni-logo">
+       </div>
+    </main>
+    
+</body>
+<script>
+    
+    
+    const addEvent = function(id){
+        const addEventModal = document.getElementById("addEventModalBox_"+id);
+        addEventModal.style.display = "block";
+        document.getElementById("blurOverlay").classList.add("blurBackground")
+    }
+
+    const cancelAddEvent = function(id){
+        const addEventModal = document.getElementById("addEventModalBox_"+id);
+        addEventModal.style.display = "none";
+        document.getElementById("blurOverlay").classList.remove("blurBackground")
+    }
+
+    const editEvent = function(id){
+        const editEventModal = document.getElementById("editEventModalBox_"+id);
+        editEventModal.style.display = "block";
+        document.getElementById("blurOverlay").classList.add("blurBackground")
+    }
+
+    const cancelEditEvent = function(id){
+        const editEventModal = document.getElementById("editEventModalBox_"+id);
+        editEventModal.style.display = "none";
+        document.getElementById("blurOverlay").classList.remove("blurBackground")
+    }
+
+</script>
+</html>
+
+    

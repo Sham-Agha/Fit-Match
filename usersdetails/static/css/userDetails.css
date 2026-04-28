@@ -1,0 +1,281 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    background: linear-gradient(135deg, 
+        #f5e6a3 0%, 
+        #e8d78a 15% ,
+        #d4a574 25%,
+        #c9a0dc 40%,
+        #a8d4f0 60%,
+        #87ceeb 75%,
+        #dda0dd 90%,
+        #e6b0d4 100%
+    );
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    background: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.nav-brand {
+    font-family: 'Funnel Display', serif;
+    font-size: 28px;
+    color: #6B2B2B;
+    text-decoration: none;
+    margin-right: 40px;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    flex-grow: 1;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #181717c9;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-item .arrow {
+    font-size: 12px;
+    color: #666;
+}
+
+.nav-icon {
+    margin-left: auto;
+    height: 60px;
+    width: auto;
+}
+
+.nav-icon svg {
+    fill: #1a3a5c;
+}
+
+/* Main Content */
+.main-content {
+    padding: 20px;
+    position: relative;
+    min-height: calc(100vh - 80px);
+}
+
+.page-title {
+    font-family: 'Funnel Display', serif;
+    font-size: 42px;
+    color: #6B2B2B;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.form-container {
+    max-width: 550px;
+    margin: 0 auto;
+    background: rgba(190, 190, 190, 0.92);
+    border-radius: 12px;
+    padding: 30px 40px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+}
+.user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.form-group.full-width {
+    width: 100%;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #fdf8f0;
+    color: #333;
+}
+
+.form-group input::placeholder {
+    color: #666;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #8b0000;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn {
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-action {
+    background: #f5f5f0;
+    border: 1px solid #ccc;
+    color: #333;
+    min-width: 180px;
+}
+
+.btn-action:hover {
+    background: #e8e8e3;
+}
+
+/* Bottom Buttons */
+.bottom-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-edit,
+.btn-save {
+    background: #fdf8f0;
+    border: 1px solid #ccc;
+    color: #333;
+    min-width: 80px;
+}
+
+.btn-edit:hover,
+.btn-save:hover {
+    background: #f0ebe0;
+    transform: scale(1.05);     
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* University Logo */
+.university-logo {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: -999;
+}
+
+.uni-text {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #333;
+}
+
+.uni-text.inspiring {
+    color: #8b0000;
+}
+
+.uni-text.research {
+    color: #666;
+}
+
+.uni-text.westminster {
+    color: #8b0000;
+    font-size: 20px;
+}
+
+.logo-icon {
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+
+.uni-logo {
+    width: 220px;   /* make smaller (decrease number) */
+    height: auto;
+    opacity: 0.7;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-container {
+        margin: 0 20px;
+        padding: 20px;
+    }
+
+}
+
+
+.modal-box{
+    padding: 40px;
+    position:fixed;
+    top: 50%;         /* Move the top edge to the vertical center */
+    left: 50%;        /* Move the left edge to the horizontal center */
+    transform: translate(-50%, -50%); 
+    width: 400px;
+    border-radius: 25px;
+    background-color: #a47f7f;
+    border: 1px solid black;
+}
+
+.contactHelpBox{
+     margin: auto 10px;
+     background-color: #89f9ff8c;
+     border-radius: 25px;
+    position: fixed;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    text-align: center;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+     row-gap: 10px;   
+}

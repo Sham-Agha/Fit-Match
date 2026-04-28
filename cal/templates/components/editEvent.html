@@ -1,0 +1,22 @@
+<div class="calendar-modal-box"> 
+    <h3>Edit Event on {{day}} {{month_name}},{{year}}</h3>
+    
+        <div style="margin: 10px 0">Select the plan for this day:</div>
+        <form action="{% url 'editEvent' %}" method="post"  style="padding: 10px">
+            {% csrf_token %}
+            <select name="plan_id"  style="padding: 5px; border-radius: 5px;">
+                <option value="-1">Remove Plan from this day</option>
+                {% for plan in plans %}
+                    <option value="{{plan.id}}">Plan {{plan.id}} : {{plan.video.title}}</option>
+                {% endfor %}
+            </select>
+            <input name="day" value="{{day}}" type="hidden"/>
+            <input name="month" value="{{month}}" type="hidden"/>
+            <input name="year" value="{{year}}" type="hidden"/>
+            <div class="bottom-buttons">
+                <input class="btn btn-edit" type="submit"/>
+                <botton class="btn btn-edit" onclick="cancelEditEvent('{{day}}')">Cancel</botton>
+            </div>
+        </form>
+
+</div>

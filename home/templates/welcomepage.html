@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit Match</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/Fitmatch-logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
+</head>
+<body>
+
+    <!-- Login -->
+    <a href="{% url 'login' %}" class="login">Login</a>
+
+    <!-- Title -->
+    <h1 class="title">Fit Match</h1>
+
+    <div class="page">
+
+        <div class="logo_and_welcomebox">
+            <!-- Logo -->
+            <img src="{% static 'images/Fitmatch-logo.png'%}" class="logo">
+
+            <!-- Welcome box -->
+            <a href="{% url 'survey' %}">
+                <div   class="welcome-box">
+                    Welcome Click to begin your Fitness Journey!
+                </div>
+            </a>
+            </div> 
+    </div>
+
+</body>
+</html>

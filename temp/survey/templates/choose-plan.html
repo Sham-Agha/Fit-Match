@@ -1,0 +1,102 @@
+{% load embed_video_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitMatch - {{title}}</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/Fitmatch-logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/userDetails.css' %}">
+    <link rel="stylesheet" href="{% static 'css/survey.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="#" class="nav-brand">{{title}}</a>
+        <div class="nav-links">
+            <div class="nav-item dropdown">
+                <a href="{% url 'user-details' %}">User Details<span class="arrow"></span></a>
+            </div>
+            <div class="nav-item dropdown">
+                <a href="{% url 'calendar' %}">Calender <span class="arrow"></span></a>
+            </div>
+            <div class="nav-item dropdown">
+                <a href="#">Help <span class="arrow"></span></a>
+            </div>
+            <div class="nav-item dropdown">
+                <a href="{% url 'logout' %}">Log out <span class="arrow"></span></a>
+            </div>
+        </div>
+        <div class="nav-icon">
+            <img src="{% static 'images/Fitmatch-logo.png' %}" alt="Fit Match Logo" class="fitmatch-logo" viewBox="0 0 64 64" width="50" height="50">
+                <circle cx="32" cy="10" r="6" fill="#1a3a5c"/>
+                <line x1="32" y1="16" x2="32" y2="35" stroke="#1a3a5c" stroke-width="4" stroke-linecap="round"/>
+                <line x1="15" y1="20" x2="49" y2="20" stroke="#1a3a5c" stroke-width="4" stroke-linecap="round"/>
+                <line x1="32" y1="35" x2="22" y2="55" stroke="#1a3a5c" stroke-width="4" stroke-linecap="round"/>
+                <line x1="32" y1="35" x2="42" y2="55" stroke="#1a3a5c" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </nav>
+
+    <div class="nav-glow"></div>
+
+    <!-- Main Content -->
+    <main class="plan-container">
+        <span class="plan-title">Choose a plan you would like to follow</span>
+        <div class="plan-options">
+            {% for item in plans %}
+                <div class="plan">
+                    <div class="youtube_video">{% video item.video.url '274x200'%}</div>
+                    <span class="plan-number" onclick="showPlanDetailModal('{{item.id}}')">Open Plan {{item.id}}</span>
+                    <div class="plan-detail">
+                        <h3 style="text-align: center;margin-bottom: 10px;">{{item.video.title}}</h3>
+                        <ul style="margin:0;padding:0;list-style: none;list-style-position: inside">
+                            <li>
+                                <b>Time:</b>
+                                <span>{{item.time}}</span>
+                            </li>
+                            <li>
+                                <b>Recommendation:</b>
+                                <span>{{item.recommendation}}</span>
+                            </li>
+                            <li>
+                                <b>Intensity:</b>
+                                <span>{{item.intensity}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="planDetailModal" style="display:none;" id="planDetailModal_{{item.id}}">
+                        <div class="planDetailVideoDisplay">{% video item.video.url '650x480'%}</div>
+                        <div class="planDetailDescription">
+                            <div><h2>{{item.video.title}}</h2></div>
+                            <div><strong>Description:</strong><p>{{item.description}}</p></div>
+                            <div><strong>Intensity of workout:</strong><span>{{item.intensity}}</span></div>
+                            <div><strong>Time:</strong><span>{{item.time}}</span></div>
+                            <div class="planDetailCloseBtn" onclick="closePlanDetailModal('{{item.id}}')">Close</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}    
+        </div>
+        
+        <div class="university-logo">
+            <img src="{% static 'images/UOW-logo.png' %}" alt="University of Westminster Logo" class="uni-logo">
+        </div>
+    </main>
+    
+</body>
+<script>
+        function showPlanDetailModal(id){
+            let modal = document.getElementById("planDetailModal_"+id)
+            console.log(modal)
+            modal.style.display = "flex"
+        }
+        function closePlanDetailModal(id){
+            let modal = document.getElementById("planDetailModal_"+id)
+            modal.style.display = "none"
+        }
+    </script>
+</html>

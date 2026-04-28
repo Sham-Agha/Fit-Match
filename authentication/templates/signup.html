@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit Match</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/Fitmatch-logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div class="page">
+
+        <!-- Login -->
+        <a href="{% url 'login' %}" class="sign_up">Login</a>
+
+        <!-- Title -->
+        <h1 class="title">Fit Match</h1>
+
+        <div class="logo_and_form">
+            <!-- Logo -->
+            <img src="{% static 'images/Fitmatch-logo.png'%}" class="logo">
+
+            <!-- Login Form box -->
+            <div class="form_container">
+            <div class="form_title">Sign Up</div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert">
+                        {{ message }}
+                        {{ message.tags }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form class="login_form" action="{% url 'signup'%}" method="post">
+                {% csrf_token %}
+                <div class="form_row">
+                    <div class="form_group">
+                        <input type="text" class="username" placeholder="Firstname" name="username" required>
+                    </div>    
+                    <div class="form_group">
+                        <input type="text"  class="" placeholder="Lastname" name="username"  required>
+                    </div>
+                </div>
+                <input type="text"  class="username" placeholder="Username" name="username"  required>
+                <input type="email" class="email" placeholder="Email" name="email"  required>
+                <div class="form_row">
+                    <div  class="form_group">
+                        <input type="password" class="password"  placeholder="Password" name="password"  required>
+                    </div>    
+                    <div  class="form_group">
+                        <input type="password" class="password" placeholder="Confirm Password" name="password"  required>
+                    </div>
+                </div>
+                
+                
+                <input class="login_button" type="submit" value="Sign up" name="sign_up"/>
+            </form>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+</html>

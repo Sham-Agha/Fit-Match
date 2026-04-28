@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit Match</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/Fitmatch-logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div class="page">
+        <!-- Top swoosh -->
+        <!--<img src="{% static 'images/pink swoosh.png'%}" class="swoosh top-swoosh">-->
+
+        <!-- Bottom swoosh -->
+        <!--<img src="{% static 'images/Blue swoosh.png'%}" class="swoosh bottom-swoosh">-->
+
+        <!-- Login -->
+        <a href="{% url 'signup' %}" class="sign_up">Sign up</a>
+
+        <!-- Title -->
+        <h1 class="title">Fit Match</h1>
+
+        <!-- Logo -->
+        <img src="{% static 'images/fitmatch logo.png'%}" class="logo">
+
+        <!-- Login Form box -->
+        <div class="form_container">
+        <div class="form_title">Login</div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <form class="login_form" action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <input class="username" type="text" value="user123" placeholder="Username" name="username">
+            <input class="password" type="password" value="user123" placeholder="Password" name="password">
+            <button class="forgot_password" formmethod="get" formaction="{% url 'reset password' %}">Forgot Password</button>
+            <input  type="submit" class="login_button" value="Login" name="Login"/>
+        </form>
+        </div>
+    </div>
+
+</body>
+</html>

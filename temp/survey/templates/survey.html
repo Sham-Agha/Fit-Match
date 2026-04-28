@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fit Match</title>
+    <link rel="icon" type="image/x-icon" href="{% static '/images/Fitmatch-logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/survey.css' %}">
+</head>
+<body>
+    <div class="topBar">
+        <!-- Title -->
+        <h1 class="topBarTitle">Fit Match</h1>
+        <!-- Login -->
+        <img src="{% static 'images/Fitmatch-logo.png'%}" class="topBarLogo">
+    </div>
+    <div class="survey-container">
+        {% include './components/questions.html' %}
+    </div>
+
+</body>
+</html>
