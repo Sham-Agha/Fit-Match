@@ -82,7 +82,7 @@ def chooseVideos(request, LIMIT = 1):
             print("plans with discomfort")
             plans = Plan.objects.select_related('video').filter(
                 focus_filter,
-                #time_filter,
+                time_filter,
                 #equipment__icontains=equipment,
                 discomfort=discomfort
             )
@@ -102,6 +102,7 @@ def chooseVideos(request, LIMIT = 1):
             print("ND", no_discomfort_plans)
 
             discomfort_plans = list(Plan.objects.select_related('video').filter(
+                focus_filter,
                 time_filter,
                 discomfort=discomfort
             )
@@ -191,7 +192,7 @@ def editSurveyView(request):
                 request.session.modified = True    
         if page_number > paginator.num_pages:
             plans = chooseVideos(request, LIMIT=2)
-            plan_ids = list(plans.values_list('id', flat=True))
+            plan_ids = list(plans["after_registration"].values_list('id', flat=True))
             plan_options = PlanOptions.objects.filter(user=request.user).first()
             plan_options.plans.set(plan_ids)
             return redirect('choose-plan')

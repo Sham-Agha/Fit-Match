@@ -98,15 +98,12 @@ def editEvent(request):
             ).delete()
             return redirect("calendar")
         # safely get event
-        event = Event.objects.filter(user=request.user, date=event_date)
+        event = Event.objects.filter(user=request.user, date=event_date).first()
         plan = Plan.objects.filter(id=plan_id)
         
 
         # update
         event.date = event_date
-        event.save()
-
-        event.plan.set([plan])
-        event.user.set([request.user])
+        event.plan.set(plan)
 
         return redirect("calendar")
