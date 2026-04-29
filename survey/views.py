@@ -47,10 +47,10 @@ def chooseVideos(request, LIMIT = 1):
                     focus_filter,
                     time_filter,
                     equipment__icontains=equipment,
-                )[:4]
+                )
             ret = {
-                "before_registration": plans,
-                "after_registration": plans
+                "before_registration": plans[:2],
+                "after_registration": plans[:4]
             }
         else:
                 
@@ -85,10 +85,10 @@ def chooseVideos(request, LIMIT = 1):
                 #time_filter,
                 #equipment__icontains=equipment,
                 discomfort=discomfort
-            )[:4]
+            )
             ret = {
-                "before_registration": plans,
-                "after_registration": plans
+                "before_registration": plans[:2],
+                "after_registration": plans[:4]
             }
         else:
             print("plans with 1/2 & 1/2 discomfort")
@@ -150,7 +150,8 @@ def surveyView(request):
             request.session["survey_complete"] = True
             plans = chooseVideos(request)
             print("plans", plans)
-            request.session["plans"] = list(plans["after_registration"].values_list('id', flat=True))
+            request.session["plans"] = list(plans["after_registration"].values_list('id', flat=True)) # -> N
+            request.session.modified = True
             return render(request, "survey-complete.html", {
                 "plans": plans["before_registration"]
             })

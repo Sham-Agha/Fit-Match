@@ -30,6 +30,8 @@ def signupView(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
         username = request.POST.get("username")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
 
         if User.objects.filter(email=email).exists():
             messages.error(request, "Account with this email already exists.")
@@ -39,7 +41,7 @@ def signupView(request):
             messages.error(request, "Account with this username exists.")
             return redirect('signup')
         
-        user = User.objects.create_user(username=username, email=email, password=password)
+        user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
         messages.success(request, "Account created successfully.")
         login(request, user) 
         plan_options = PlanOptions.objects.create()
