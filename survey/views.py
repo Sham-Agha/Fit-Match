@@ -41,7 +41,8 @@ def chooseVideos(request, LIMIT = 1):
             plans = Plan.objects.select_related('video').filter(
                     focus_filter,
                     time=time,
-                    equipment__icontains=equipment,
+                    discomfort="No Discomfort",
+                    equipment=equipment
                 )
             ret = {
                 "before_registration": plans[:2],
@@ -53,11 +54,13 @@ def chooseVideos(request, LIMIT = 1):
                     focus_filter,
                     time=time,
                     equipment__icontains=equipment,
+                    discomfort="No Discomfort",
                 ))
             no_equipment_plans = list(Plan.objects.select_related('video').filter(
                     focus_filter,
                     time=time,
-                    equipment__icontains="No Equipment",
+                    equipment="No Equipment",
+                    discomfort="No Discomfort",
                 ))
             
             before_reg_plans = equipment_plans[:1] + no_equipment_plans[:1]
@@ -78,7 +81,7 @@ def chooseVideos(request, LIMIT = 1):
             plans = Plan.objects.select_related('video').filter(
                 focus_filter,
                 time=time,
-                #equipment__icontains=equipment,
+                equipment="No Equipment",
                 discomfort=discomfort
             )
             ret = {
@@ -99,6 +102,7 @@ def chooseVideos(request, LIMIT = 1):
             discomfort_plans = list(Plan.objects.select_related('video').filter(
                 focus_filter,
                 time=time,
+                equipment="No Equipment",
                 discomfort=discomfort
             )
             )
