@@ -1,0 +1,135 @@
+
+.calendar-container{
+    display: flex;
+    height: 85%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.blurBackground{
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(8px);
+    z-index:1000;
+}
+
+.calendar{
+    background-color: rgb(222, 222, 222);
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
+    
+}
+
+.calendar-table{
+    background-color: white;
+    border: none;
+    border-collapse: collapse;
+    overflow-y: auto;
+}
+
+.calendar-title{
+    
+    margin: 3px;
+}
+
+.calendar-heading-row{
+    background-color: rgb(0, 197, 246);
+    text-align: left;
+}
+.calendar-heading-row > th{
+    padding: 5px;
+}
+
+.calendar-day{
+        
+}
+
+.event-tile{
+    background-color: #87ceeb;
+    vertical-align: top;
+    padding: 5px;
+    position: relative
+}
+.dead-event-tile{
+    background-color: #6ba2b8;
+    vertical-align: top;
+    padding: 5px;
+    position: relative
+}
+
+.event-tile:hover{
+    background-color: #ffb9ff;
+}
+
+.calendar-tile{
+    vertical-align: top;
+    width: 110px;
+    height: 90px;
+    padding: 5px;
+    position: relative
+}
+.dead-tile{
+    background-color: rgb(195, 195, 195);
+    vertical-align: top;
+    padding: 5px;
+    position: relative;
+    width: 110px;
+    height: 90px;
+}
+@media screen and (min-width: 1920px){
+        .calendar-tile{
+        vertical-align: top;
+        width: 140px;
+        height: 110px;
+        padding: 5px;
+        position: relative
+    }
+    .dead-tile{
+        background-color: rgb(195, 195, 195);
+        vertical-align: top;
+        padding: 5px;
+        position: relative;
+        width: 140px;
+        height: 110px;
+    }   
+}
+
+.calendar-tile:hover{
+    
+    background-color: rgb(238, 238, 238);
+}
+
+.add-button{
+    
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.add_icon:hover{
+    cursor: pointer;
+}
+
+.edit_icon:hover{
+    cursor: pointer;
+}
+
+
+
+.calendar-modal-box{
+    padding: 10px;
+    z-index:9999;
+    position:fixed;
+    top: 50%;         /* Move the top edge to the vertical center */
+    left: 50%;        /* Move the left edge to the horizontal center */
+    transform: translate(-50%, -50%); 
+    width: 400px;
+    border-radius: 15px;
+    border: 1px solid rgb(218, 218, 218);
+    background-color: rgb(212, 212, 212);
+}

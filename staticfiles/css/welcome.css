@@ -1,0 +1,122 @@
+/* Reset default browser spacing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    height: 100vh;
+    background-image: url('/static/images/Blue-swoosh.png'), url('/static/images/Pink-swoosh.png');
+    background-size:cover;
+    overflow:hidden;
+}
+
+/* MAIN CONTAINER */
+.page {
+    position: relative;   /* THIS IS CRITICAL */
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* SWOOSH IMAGES */
+.swoosh {
+    position: absolute;
+    width: 100%;
+}
+
+.top-swoosh {
+    top: -85px;
+    left: 0;
+    z-index: 2;
+    filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.20));
+}
+
+.bottom-swoosh{
+  position: absolute;
+  bottom: -170px;
+  left: 0;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+}
+
+
+/* TITLE */
+.title {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 80px;
+    color: #6b2c2c;
+    z-index: 3;
+    font-family: serif;
+}
+
+/* LOGIN */
+.login {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #9a6a6a;
+    text-decoration: none;
+    font-size: 30px;
+    z-index: 3;
+}
+
+/* LOGO */
+.logo {
+ 
+    width: 240px;
+    z-index: 3;
+
+    filter:
+        drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25))
+        drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25))
+        drop-shadow(0 16px 20px rgba(0, 0, 0, 0.2));
+}
+
+
+/* WELCOME BOX */
+.welcome-box {
+
+    background: rgba(200, 225, 235, 0.9);
+    padding: 40px 40px;
+    border-radius: 6px;
+    font-size: 18px;
+    z-index: 3;
+    filter:
+    drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+    
+}
+
+
+.logo_and_welcomebox{
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;  
+}
+
+.contactHelpBox{
+     margin: auto 10px;
+    position: fixed;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 85%;
+    font-family: Georgia, serif;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+     row-gap: 10px;   
+}
