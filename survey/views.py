@@ -20,18 +20,13 @@ def chooseVideos(request, LIMIT = 1):
             time = ans
         elif ans in ["Dumbbells", "Resistance Bands", "No Equipment"]:
             equipment = ans
-        elif ans in ["No Discomfort", "Back Pain", "Leg Pain", "Fatigue/Anxiety"]:
+        elif ans in ["No Discomfort", "Leg Pain", "Fatigue/Anxiety"]:
             discomfort = ans
         else:
             continue
     print("[]",focus, time, equipment, discomfort)
     focus_filter = Q(focus__icontains=focus)
-    if time == "5-10 minutes":
-        time_filter = Q(time__icontains="5 minutes") | Q(time__icontains="10 minutes")
-    if time == "10-20 minutes":
-        time_filter = Q(time__icontains="10 minutes") | Q(time__icontains="20 minutes")
-    if time == "20-30 minutes":
-        time_filter = Q(time__icontains="20 minutes") | Q(time__icontains="30 minutes")
+    
     """
     if discomfort, then two discomfort and two normal
     else four normal
@@ -42,10 +37,10 @@ def chooseVideos(request, LIMIT = 1):
         }
     if discomfort == "No Discomfort":
         print("Plans with no discomfort")
-        if equipment == "No Equipment":
+        if equipment != "No Equipment":
             plans = Plan.objects.select_related('video').filter(
                     focus_filter,
-                    time_filter,
+                    time=time,
                     equipment__icontains=equipment,
                 )
             ret = {
@@ -56,12 +51,12 @@ def chooseVideos(request, LIMIT = 1):
                 
             equipment_plans = list(Plan.objects.select_related('video').filter(
                     focus_filter,
-                    time_filter,
+                    time=time,
                     equipment__icontains=equipment,
                 ))
             no_equipment_plans = list(Plan.objects.select_related('video').filter(
                     focus_filter,
-                    time_filter,
+                    time=time,
                     equipment__icontains="No Equipment",
                 ))
             
@@ -82,7 +77,7 @@ def chooseVideos(request, LIMIT = 1):
             print("plans with discomfort")
             plans = Plan.objects.select_related('video').filter(
                 focus_filter,
-                time_filter,
+                time=time,
                 #equipment__icontains=equipment,
                 discomfort=discomfort
             )
@@ -94,7 +89,7 @@ def chooseVideos(request, LIMIT = 1):
             print("plans with 1/2 & 1/2 discomfort")
             no_discomfort_plans = list(Plan.objects.select_related('video').filter(
                 focus_filter,
-                time_filter,
+                time=time,
                 equipment__icontains=equipment,
                 discomfort="No Discomfort"
             )
@@ -103,7 +98,7 @@ def chooseVideos(request, LIMIT = 1):
 
             discomfort_plans = list(Plan.objects.select_related('video').filter(
                 focus_filter,
-                time_filter,
+                time=time,
                 discomfort=discomfort
             )
             )
