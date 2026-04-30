@@ -32,7 +32,7 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <form class="login_form" action="{% url 'signup'%}" method="post">
+            <form class="login_form" id="signupForm" action="{% url 'signup'%}" method="post">
                 {% csrf_token %}
                 <div class="form_row">
                     <div class="form_group">
@@ -46,13 +46,14 @@
                 <input type="email" class="email" placeholder="Email" name="email"  required>
                 <div class="form_row">
                     <div  class="form_group">
-                        <input type="password" class="password"  placeholder="Password" name="password"  required>
+                        <input type="password" id="password" class="password"  placeholder="Password" name="password"  required>
                     </div>    
                     <div  class="form_group">
-                        <input type="password" class="password" placeholder="Confirm Password" name="password"  required>
+                        <input type="password" id="confirmPassword" class="password" placeholder="Confirm Password" name="confirmPassword"  required>
                     </div>
+
                 </div>
-                
+                <span id="msg" style="color:red; display: none">The password does not match</span>
                 
                 <input class="login_button" type="submit" value="Sign up" name="sign_up"/>
             </form>
@@ -62,4 +63,24 @@
     </div>
 
 </body>
+<script>
+    let pass = document.getElementById("password");
+    let confirmPass = document.getElementById("confirmPassword");
+    let msg = document.getElementById("msg");
+    document.getElementById("signupForm").addEventListener('submit', function(event){
+        event.preventDefault();
+        console.log(pass.value, confirmPass.value);
+        if(pass.value === confirmPass.value){
+            msg.style.display = "none";
+            this.submit();
+            
+        }
+        else{
+             console.log("did not match")
+            msg.style.display = "block";
+            return false;
+        }
+        
+    })
+</script>
 </html>

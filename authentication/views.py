@@ -19,7 +19,7 @@ def loginView(request):
             login(request, user)
             return redirect('choose-plan')
         else:
-            messages.error(request, "Loggin failed")
+            messages.error(request, "Log In failed")
             return redirect('login')
         
 @survey_required
@@ -42,12 +42,13 @@ def signupView(request):
             return redirect('signup')
         
         user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
-        messages.success(request, "Account created successfully.")
-        login(request, user) 
+        
+       
         plan_options = PlanOptions.objects.create()
         plan_options.user.add(user)
         plan_ids = request.session.get("plans")
         plan_options.plans.set(plan_ids)
+        login(request, user) 
         return redirect('choose-plan')
 
 

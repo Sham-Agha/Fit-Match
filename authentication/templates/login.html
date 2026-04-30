@@ -35,8 +35,8 @@
                 
                 <form class="login_form" action="{% url 'login' %}" method="post">
                     {% csrf_token %}
-                    <input class="username" type="text" value="user123" placeholder="Username" name="username">
-                    <input class="password" type="password" value="user123" placeholder="Password" name="password">
+                    <input class="username" type="text" placeholder="Username" name="username">
+                    <input class="password" type="password"  placeholder="Password" name="password">
                     <input  type="submit" class="login_button" value="Login" name="Login"/>
                     <button class="forgot_password" formmethod="get" formaction="{% url 'reset password' %}">Forgot Password</button>
                 </form>
