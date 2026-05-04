@@ -49,7 +49,13 @@ def chooseVideos(request, LIMIT = 1):
                 "after_registration": plans[:4]
             }
         else:
-                
+            equipment_plans = Plan.objects.select_related('video').filter(
+                    focus_filter,
+                    time=time,
+                    equipment__icontains=equipment,
+                    discomfort="No Discomfort",
+                )
+            """    
             equipment_plans = list(Plan.objects.select_related('video').filter(
                     focus_filter,
                     time=time,
@@ -74,6 +80,11 @@ def chooseVideos(request, LIMIT = 1):
             ret = {
                 "before_registration": before_reg_plans,
                 "after_registration": after_reg_plans
+            }
+            """
+            ret = {
+                "before_registration": equipment_plans[:2],
+                "after_registration": equipment_plans[:4]
             }
     else:
         if equipment == "No Equipment":
@@ -152,6 +163,7 @@ def surveyView(request):
             print("plans", plans)
             request.session["plans"] = list(plans["after_registration"].values_list('id', flat=True)) # -> N
             request.session.modified = True
+            print("SET", request.session.session_key, request.session.get("plans"))
             return render(request, "survey-complete.html", {
                 "plans": plans["before_registration"]
             })

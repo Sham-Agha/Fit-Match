@@ -24,14 +24,7 @@
             <!-- Login Form box -->
             <div class="form_container">
             <div class="form_title">Sign Up</div>
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert">
-                        {{ message }}
-                        {{ message.tags }}
-                    </div>
-                {% endfor %}
-            {% endif %}
+            
             <form class="login_form" id="signupForm" action="{% url 'signup'%}" method="post">
                 {% csrf_token %}
                 <div class="form_row">

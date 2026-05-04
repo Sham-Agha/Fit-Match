@@ -47,6 +47,7 @@ def signupView(request):
         plan_options = PlanOptions.objects.create()
         plan_options.user.add(user)
         plan_ids = request.session.get("plans")
+        print("GET", request.session.session_key, plan_ids)
         plan_options.plans.set(plan_ids)
         login(request, user) 
         return redirect('choose-plan')

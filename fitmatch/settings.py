@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
-LOGIN_URL = '/authentication/login/'
+LOGIN_URL = 'login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
